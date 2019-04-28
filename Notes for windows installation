@@ -1,0 +1,40 @@
+First, install anaconda
+	https://docs.anaconda.com/anaconda/install/windows/
+
+After the installation is complete, open a new command prompt window and type the following commands and wait for installation to complete:
+
+	conda create --name localkeras_win python=3.6
+
+	activate localkeras_win
+
+	conda install -c conda-forge nibabel nilearn pytables 
+
+	conda install theano keras numpy scipy tensorflow-gpu
+
+
+Now, you need to modify the keras.json file to force keras to use tensorflow as a ML backend
+
+Open
+%USERPROFILE%/.keras/keras.json
+and change "theano" to "tensorflow"
+
+
+Download and unzip MedSeg.
+	https://github.com/Trevh5/MedSeg3D
+
+Navigate to and open ct_ventricles_predict.py in the "MedSeg" folder
+	Change the following lines to be specific to your computer:
+		model_dir="C:\\Users\\Trevor\\Desktop\\My Python Code\\MedSeg3D\\models\\"  # This is the folder that has the ML models
+		test_dir="C:\\Users\\Trevor\\Desktop\\ventricle_segmentations\\0000312-063\\" 
+			Note: If you are going to use ct_ventricles_predict.py to do the segmentation, you will have to rename your scan to be CT.nii.gz
+				The folder structure should be:
+					Primary folder (this is the directory that should be indicated by model_dir)
+						Patient folder
+							CT.nii.gz
+
+				If it is too annoying to make this folder structure each time you want to segment an image, you can always rewrite the code to work the way you want. I wrote the code originally to work with the file structure for our dataset.
+
+Now you should be able to run python ct_ventricles_predict.py!!
+Feel free to play around with the code to make it work better with your system.
+
+NOTE: Make sure your cuda drivers are up to date!!
